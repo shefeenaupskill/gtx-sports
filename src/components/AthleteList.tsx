@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Activity, Gauge, Calendar, Database, Search } from 'lucide-react';
+import { User, Activity, Gauge, Calendar, Database, Monitor, Trash2 } from 'lucide-react';
 
 interface Athlete {
   id: number;
@@ -19,7 +19,9 @@ interface Athlete {
 export default function AthleteList({ refresh }: { refresh: boolean }) {
   const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   useEffect(() => {
     fetchAthletes();
@@ -37,10 +39,37 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
     }
   };
 
-  const filteredAthletes = Array.isArray(athletes) 
-    ? athletes.filter(a => a.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    : [];
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Are you sure you want to permanently strip this record from the DNA registry?")) return;
+    
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/athletes?id=${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete');
+      
+      setAthletes((prev) => {
+        const nextAthletes = prev.filter(a => a.id !== id);
+        const newTotalPages = Math.ceil(nextAthletes.length / itemsPerPage);
+        if (currentPage > newTotalPages && newTotalPages > 0) {
+          setCurrentPage(newTotalPages);
+        }
+        return nextAthletes;
+      });
+    } catch (err) {
+      console.error('Error deleting athlete', err);
+      alert('Failed to delete genetic record.');
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
+  const validAthletes = Array.isArray(athletes) ? athletes : [];
+  const totalPages = Math.ceil(validAthletes.length / itemsPerPage);
+  
+  const currentAthletes = validAthletes.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   if (loading) {
     return (
       <div className="h-[400px] flex flex-col items-center justify-center gap-5 text-[#a1a1a6] font-extrabold text-[0.8rem] tracking-[0.1em]">
@@ -56,22 +85,14 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
 
   return (
     <div className="glass h-[570px] bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-[24px] flex flex-col">
-      <div className="p-6 border-b border-[rgba(255,255,255,0.05)]">
-        <div className="bg-[rgba(255,255,255,0.05)] rounded-full py-2.5 px-5 flex items-center gap-3">
-          <Search size={16} color="rgba(255,255,255,0.4)" />
-          <input 
-            type="text" 
-            placeholder="FILTER ATHLETES..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent border-none text-white text-[0.8rem] font-bold tracking-[0.1em] w-full focus:outline-none"
-          />
-        </div>
+      <div className="p-6 border-b border-[rgba(255,255,255,0.05)] flex items-center gap-3">
+        <Database size={20} color="#39FF14" />
+        <h3 className="text-[1.1rem] font-extrabold uppercase tracking-[0.1em] text-white">DNA REGISTRY</h3>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[rgba(255,255,255,0.05)] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#39FF14]">
         <AnimatePresence mode="popLayout">
-          {filteredAthletes.length === 0 ? (
+          {currentAthletes.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -81,7 +102,7 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
               <p>NO GENETIC DATA FOUND</p>
             </motion.div>
           ) : (
-            filteredAthletes.map((athlete) => (
+            currentAthletes.map((athlete) => (
               <motion.div 
                 key={athlete.id}
                 layout
@@ -111,17 +132,63 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start sm:items-end">
-                  <div className="bg-[rgba(255,255,255,0.05)] py-1 px-2.5 rounded-md text-[0.7rem] font-extrabold text-[#39FF14] uppercase tracking-[0.05em] mb-1.5 inline-block">{athlete.testType}</div>
-                  <div className="text-[0.75rem] text-[#a1a1a6] flex items-center gap-[5px]">
-                    <Calendar size={12} /> {new Date(athlete.testDate).toLocaleDateString()}
+                <div className="flex flex-col items-start sm:items-end gap-2 relative pr-0 sm:pr-12 w-full sm:w-auto mt-3 sm:mt-0">
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#39FF14]">
+                    <Monitor size={14} color="#39FF14" />
+                    <span>{athlete.testType}</span>
                   </div>
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
+                    <Calendar size={14} color="#a1a1a6" />
+                    <span>{new Date(athlete.testDate).toLocaleDateString()}</span>
+                  </div>
+                  <button 
+                    onClick={() => handleDelete(athlete.id)}
+                    disabled={deletingId === athlete.id}
+                    title="Delete Record"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center bg-[rgba(255,59,48,0.1)] text-[#ff3b30] hover:bg-[#ff3b30] hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
+                  >
+                    {deletingId === athlete.id ? (
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} className="w-4 h-4 border-2 border-inherit border-t-transparent rounded-full" />
+                    ) : (
+                      <Trash2 size={14} />
+                    )}
+                  </button>
                 </div>
               </motion.div>
             ))
           )}
         </AnimatePresence>
       </div>
+
+      {totalPages > 1 && (
+        <div className="p-4 border-t border-[rgba(255,255,255,0.05)] flex items-center justify-between">
+          <button 
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="text-[0.75rem] font-bold text-[#a1a1a6] cursor-pointer disabled:cursor-not-allowed disabled:opacity-30 hover:text-white transition-colors"
+          >
+            PREVIOUS
+          </button>
+          <div className="flex gap-2">
+            {Array.from({ length: totalPages }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentPage(idx + 1)}
+                className={`w-6 h-6 rounded-full cursor-pointer text-[0.7rem] font-bold flex items-center justify-center transition-colors ${currentPage === idx + 1 ? 'bg-[#39FF14] text-black' : 'bg-[rgba(255,255,255,0.05)] text-[#a1a1a6] hover:bg-[rgba(255,255,255,0.1)]'}`}
+              >
+                {idx + 1}
+              </button>
+            ))}
+          </div>
+          <button 
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="text-[0.75rem] font-bold text-[#a1a1a6] cursor-pointer disabled:cursor-not-allowed disabled:opacity-30 hover:text-white transition-colors"
+          >
+            NEXT
+          </button>
+        </div>
+      )}
     </div>
   );
 }
