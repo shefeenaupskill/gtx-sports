@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Dna, Gauge, Smartphone, Zap } from 'lucide-react';
-import styles from '@/app/page.module.css';
 import Particles from '@/components/Particles';
 
 const FEATURES = [
@@ -14,8 +13,8 @@ const FEATURES = [
 
 export default function FeatureShowcase() {
   return (
-    <section className={styles.featuresSection}>
-      <div className={styles.particlesOverlay}>
+    <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-60">
         <Particles
           particleCount={200}
           particleSpread={10}
@@ -30,17 +29,17 @@ export default function FeatureShowcase() {
           disableRotation={false}
         />
       </div>
-      <div className={styles.container}>
+      <div className="w-full max-w-[1500px] mx-auto px-8 xl:px-16 relative z-10">
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className={styles.featuresHeader}
+          className="mb-16"
         >
-          <h2 className={styles.sectionHeading}>WHAT IF YOUR DNA COULD TELL YOU HOW TO...</h2>
+          <h2 className="text-[2.5rem] font-extrabold mb-16 max-w-[700px]">WHAT IF YOUR DNA COULD TELL YOU HOW TO...</h2>
         </motion.div>
 
-        <div className={styles.featuresGrid}>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           {FEATURES.map((item, index) => (
             <motion.div 
               key={index}
@@ -48,10 +47,10 @@ export default function FeatureShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -5, backgroundColor: "rgba(57, 255, 20, 0.05)" }}
-              className={styles.featureCard}
+              className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] p-12 lg:p-8 rounded-[20px] transition-all duration-300 hover:-translate-y-1 hover:bg-[rgba(57,255,20,0.05)]"
             >
-              <div className={styles.iconBox}>{item.icon}</div>
-              <p className={styles.featureText}>{item.text}</p>
+              <div className="mb-6">{item.icon}</div>
+              <p className="text-[1.2rem] font-medium leading-[1.4]">{item.text}</p>
             </motion.div>
           ))}
         </div>

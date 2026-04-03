@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Activity, Gauge, Calendar, Database, Search } from 'lucide-react';
-import styles from './AthleteList.module.css';
 
 interface Athlete {
   id: number;
@@ -44,11 +43,11 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
 
   if (loading) {
     return (
-      <div className={styles.loadingContainer}>
+      <div className="h-[400px] flex flex-col items-center justify-center gap-5 text-[#a1a1a6] font-extrabold text-[0.8rem] tracking-[0.1em]">
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className={styles.loader}
+          className="w-[40px] h-[40px] border-4 border-[rgba(57,255,20,0.1)] border-t-[#39FF14] rounded-full"
         />
         <p>ACCESSING DNA RECORDS...</p>
       </div>
@@ -56,26 +55,27 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
   }
 
   return (
-    <div className={`glass ${styles.container}`}>
-      <div className={styles.topBar}>
-        <div className={styles.searchBox}>
+    <div className="glass h-[570px] bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-[24px] flex flex-col">
+      <div className="p-6 border-b border-[rgba(255,255,255,0.05)]">
+        <div className="bg-[rgba(255,255,255,0.05)] rounded-full py-2.5 px-5 flex items-center gap-3">
           <Search size={16} color="rgba(255,255,255,0.4)" />
           <input 
             type="text" 
             placeholder="FILTER ATHLETES..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            className="bg-transparent border-none text-white text-[0.8rem] font-bold tracking-[0.1em] w-full focus:outline-none"
           />
         </div>
       </div>
 
-      <div className={styles.listWrapper}>
+      <div className="flex-1 overflow-y-auto p-4 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[rgba(255,255,255,0.05)] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#39FF14]">
         <AnimatePresence mode="popLayout">
           {filteredAthletes.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className={styles.emptyState}
+              className="h-[300px] flex flex-col items-center justify-center gap-[15px] text-[#a1a1a6] font-extrabold text-[0.8rem] opacity-50"
             >
               <Database size={32} opacity={0.2} />
               <p>NO GENETIC DATA FOUND</p>
@@ -88,32 +88,32 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className={styles.athleteRow}
+                className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] rounded-2xl p-[1.2rem] flex flex-col sm:flex-row justify-between sm:items-center mb-[0.8rem] transition-all duration-300 hover:bg-[rgba(57,255,20,0.03)] hover:border-[rgba(57,255,20,0.2)] hover:translate-x-[5px] gap-4 sm:gap-0"
               >
-                <div className={styles.athleteMain}>
-                  <div className={styles.avatarBox}>
+                <div className="flex items-center gap-[15px] min-w-[250px]">
+                  <div className="w-[44px] h-[44px] bg-[rgba(57,255,20,0.08)] rounded-xl flex items-center justify-center shrink-0">
                     <User size={18} color="#39FF14" />
                   </div>
                   <div>
-                    <div className={styles.name}>{athlete.name}</div>
-                    <div className={styles.email}>{athlete.email}</div>
+                    <div className="font-extrabold text-[0.95rem] text-white tracking-[0.02em]">{athlete.name}</div>
+                    <div className="text-[0.8rem] text-[#a1a1a6] font-light">{athlete.email}</div>
                   </div>
                 </div>
 
-                <div className={styles.stats}>
-                  <div className={styles.statItem}>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
                     <Activity size={14} color="#39FF14" />
                     <span>{athlete.sportType}</span>
                   </div>
-                  <div className={styles.statItem}>
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
                     <Gauge size={14} color="#007AFF" />
                     <span>{athlete.experienceLevel}</span>
                   </div>
                 </div>
 
-                <div className={styles.testInfo}>
-                  <div className={styles.testBadge}>{athlete.testType}</div>
-                  <div className={styles.date}>
+                <div className="flex flex-col items-start sm:items-end">
+                  <div className="bg-[rgba(255,255,255,0.05)] py-1 px-2.5 rounded-md text-[0.7rem] font-extrabold text-[#39FF14] uppercase tracking-[0.05em] mb-1.5 inline-block">{athlete.testType}</div>
+                  <div className="text-[0.75rem] text-[#a1a1a6] flex items-center gap-[5px]">
                     <Calendar size={12} /> {new Date(athlete.testDate).toLocaleDateString()}
                   </div>
                 </div>
