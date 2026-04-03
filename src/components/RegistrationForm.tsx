@@ -159,7 +159,7 @@ export default function RegistrationForm({ onComplete }: { onComplete: () => voi
               name="testDate"
               value={formData.testDate}
               onChange={handleChange}
-              className="relative w-full py-4 pr-4 pl-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl md:rounded-[14px] text-white font-sans text-[0.9rem] md:text-[1rem] transition-all duration-200 focus:outline-none focus:border-[#39FF14] focus:bg-[rgba(255,255,255,0.08)] autofill:shadow-[inset_0_0_0px_1000px_#1a1a1a] autofill:[-webkit-text-fill-color:white]"
+              className="relative w-full py-4 pr-8 pl-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl md:rounded-[14px] text-white font-sans text-[0.9rem] md:text-[1rem] transition-all duration-200 focus:outline-none focus:border-[#39FF14] focus:bg-[rgba(255,255,255,0.08)] autofill:shadow-[inset_0_0_0px_1000px_#1a1a1a] autofill:[-webkit-text-fill-color:white]"
             />
           </div>
         </div>
