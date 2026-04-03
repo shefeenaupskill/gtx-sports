@@ -139,7 +139,7 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
                   </div>
                   <div className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6] whitespace-nowrap">
                     <Calendar size={12} color="#a1a1a6" className="shrink-0" />
-                    <span>{new Date(athlete.testDate).toLocaleDateString()}</span>
+                    <span>TEST DATE: {new Date(athlete.testDate).toLocaleDateString()}</span>
                   </div>
                   <button 
                     onClick={() => handleDelete(athlete.id)}

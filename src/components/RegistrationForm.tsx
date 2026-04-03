@@ -144,21 +144,24 @@ export default function RegistrationForm({ onComplete }: { onComplete: () => voi
           onChange={handleCustomSelect}
         />
 
-        <div className="relative flex items-center z-0">
-          <Calendar 
-            className="absolute left-[14px] text-[#39FF14] opacity-70 cursor-pointer transition-transform duration-200 hover:scale-110 hover:opacity-100 z-10" 
-            size={16} 
-            onClick={() => dateInputRef.current?.showPicker()}
-          />
-          <input
-            ref={dateInputRef}
-            required
-            type="date"
-            name="testDate"
-            value={formData.testDate}
-            onChange={handleChange}
-            className="relative w-full py-4 pr-4 pl-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl md:rounded-[14px] text-white font-sans text-[0.9rem] md:text-[1rem] transition-all duration-200 focus:outline-none focus:border-[#39FF14] focus:bg-[rgba(255,255,255,0.08)] autofill:shadow-[inset_0_0_0px_1000px_#1a1a1a] autofill:[-webkit-text-fill-color:white]"
-          />
+        <div className="relative flex flex-col z-0">
+          <label className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[rgba(255,255,255,0.4)] mb-1.5 pl-1">Test Date</label>
+          <div className="relative flex items-center">
+            <Calendar 
+              className="absolute left-[14px] text-[#39FF14] opacity-70 cursor-pointer transition-transform duration-200 hover:scale-110 hover:opacity-100 z-10" 
+              size={16} 
+              onClick={() => dateInputRef.current?.showPicker()}
+            />
+            <input
+              ref={dateInputRef}
+              required
+              type="date"
+              name="testDate"
+              value={formData.testDate}
+              onChange={handleChange}
+              className="relative w-full py-4 pr-4 pl-12 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl md:rounded-[14px] text-white font-sans text-[0.9rem] md:text-[1rem] transition-all duration-200 focus:outline-none focus:border-[#39FF14] focus:bg-[rgba(255,255,255,0.08)] autofill:shadow-[inset_0_0_0px_1000px_#1a1a1a] autofill:[-webkit-text-fill-color:white]"
+            />
+          </div>
         </div>
 
         {status.message && (
