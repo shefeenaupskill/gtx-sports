@@ -109,48 +109,48 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] rounded-2xl p-[1.2rem] flex flex-col sm:flex-row justify-between sm:items-center mb-[0.8rem] transition-all duration-300 hover:bg-[rgba(57,255,20,0.03)] hover:border-[rgba(57,255,20,0.2)] hover:translate-x-[5px] gap-4 sm:gap-0"
+                className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row justify-between sm:items-center mb-2 transition-all duration-300 hover:bg-[rgba(57,255,20,0.03)] hover:border-[rgba(57,255,20,0.2)] hover:translate-x-[3px] gap-3 sm:gap-4"
               >
-                <div className="flex items-center gap-[15px] min-w-[250px]">
-                  <div className="w-[44px] h-[44px] bg-[rgba(57,255,20,0.08)] rounded-xl flex items-center justify-center shrink-0">
-                    <User size={18} color="#39FF14" />
+                <div className="flex items-center gap-2.5 min-w-[200px]">
+                  <div className="w-[36px] h-[36px] bg-[rgba(57,255,20,0.08)] rounded-lg flex items-center justify-center shrink-0">
+                    <User size={15} color="#39FF14" />
                   </div>
                   <div>
-                    <div className="font-extrabold text-[0.95rem] text-white tracking-[0.02em]">{athlete.name}</div>
-                    <div className="text-[0.8rem] text-[#a1a1a6] font-light">{athlete.email}</div>
+                    <div className="font-extrabold text-[0.8rem] text-white tracking-[0.02em]">{athlete.name}</div>
+                    <div className="text-[0.7rem] text-[#a1a1a6] font-light">{athlete.email}</div>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
-                    <Activity size={14} color="#39FF14" />
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
+                    <Activity size={12} color="#39FF14" />
                     <span>{athlete.sportType}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
-                    <Gauge size={14} color="#007AFF" />
+                  <div className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
+                    <Gauge size={12} color="#007AFF" />
                     <span>{athlete.experienceLevel}</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start gap-2 relative pr-12 mt-3 sm:mt-0 min-w-[160px]">
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#39FF14] whitespace-nowrap">
-                    <Monitor size={14} color="#39FF14" className="shrink-0" />
+                <div className="flex flex-col items-start gap-1.5 relative pr-10 mt-2 sm:mt-0 min-w-[140px]">
+                  <div className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.05em] text-[#39FF14] whitespace-nowrap">
+                    <Monitor size={12} color="#39FF14" className="shrink-0" />
                     <span>{athlete.testType}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6] whitespace-nowrap">
-                    <Calendar size={14} color="#a1a1a6" className="shrink-0" />
+                  <div className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6] whitespace-nowrap">
+                    <Calendar size={12} color="#a1a1a6" className="shrink-0" />
                     <span>{new Date(athlete.testDate).toLocaleDateString()}</span>
                   </div>
                   <button 
                     onClick={() => handleDelete(athlete.id)}
                     disabled={deletingId === athlete.id}
                     title="Delete Record"
-                    className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center bg-[rgba(255,59,48,0.1)] text-[#ff3b30] hover:bg-[#ff3b30] hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full flex items-center justify-center bg-[rgba(255,59,48,0.1)] text-[#ff3b30] hover:bg-[#ff3b30] hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
                   >
                     {deletingId === athlete.id ? (
-                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} className="w-4 h-4 border-2 border-inherit border-t-transparent rounded-full" />
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} className="w-3.5 h-3.5 border-2 border-inherit border-t-transparent rounded-full" />
                     ) : (
-                      <Trash2 size={14} />
+                      <Trash2 size={12} />
                     )}
                   </button>
                 </div>

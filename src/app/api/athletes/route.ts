@@ -70,3 +70,27 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Athlete ID is required' }, { status: 400 });
+    }
+
+    await prisma.athlete.delete({
+      where: { id: parseInt(id) },
+    });
+
+    return NextResponse.json({ success: true, message: 'Athlete deleted successfully' });
+  } catch (err) {
+    const error = err instanceof Error ? err : new Error('Unknown error');
+    console.error('DELETE_ATHLETE_ERROR:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete athlete', details: error.message },
+      { status: 500 }
+    );
+  }
+}
