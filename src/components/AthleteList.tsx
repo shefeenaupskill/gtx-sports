@@ -132,13 +132,13 @@ export default function AthleteList({ refresh }: { refresh: boolean }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start sm:items-end gap-2 relative pr-0 sm:pr-12 w-full sm:w-auto mt-3 sm:mt-0">
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#39FF14]">
-                    <Monitor size={14} color="#39FF14" />
+                <div className="flex flex-col items-start gap-2 relative pr-12 mt-3 sm:mt-0 min-w-[160px]">
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#39FF14] whitespace-nowrap">
+                    <Monitor size={14} color="#39FF14" className="shrink-0" />
                     <span>{athlete.testType}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6]">
-                    <Calendar size={14} color="#a1a1a6" />
+                  <div className="flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.05em] text-[#a1a1a6] whitespace-nowrap">
+                    <Calendar size={14} color="#a1a1a6" className="shrink-0" />
                     <span>{new Date(athlete.testDate).toLocaleDateString()}</span>
                   </div>
                   <button 
