@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GTX Sports Athlete Registration & Test Management System
 
-## Getting Started
+A premium, full-stack dynamic web application built for sports labs to manage athlete enrollment and performance testing.
 
-First, run the development server:
+## 🚀 Features
+- **Modern SPA Architecture**: Built with Next.js 15 and App Router.
+- **Premium Design**: Dark-mode-first aesthetic with glassmorphism and GT Performance Green accents.
+- **Athlete Registration**: Form with real-time validation and error handling.
+- **Dynamic Database**: SQLite integration with Prisma for efficient data management.
+- **API Endpoints**: RESTful GET/POST routes for athlete data.
+- **Validation**: Strict schema validation using Zod on both client and server.
 
+## 🛠️ Tech Stack
+- **Framework**: [Next.js](https://nextjs.org/) (TypeScript)
+- **Database**: [SQLite](https://www.sqlite.org/) via [Prisma ORM](https://www.prisma.io/)
+- **Validation**: [Zod](https://zod.dev/)
+- **Styling**: Vanilla CSS Modules (Premium bespoke design)
+- **Deployment**: Optimized for Vercel or any Node.js environment
+
+## 🏃 How to Run the Project
+
+### 1. Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### 2. Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Install dependencies
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Database Setup
+```bash
+# Initialize the SQLite database and generate Prisma client
+npx prisma db push
+npx prisma generate
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Start Development Server
+```bash
+npm run dev
+```
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📊 Database Schema
+The `Athlete` model includes:
+- `id`: Auto-incrementing unique identifier.
+- `name`: Full name of the athlete.
+- `email`: Unique email address.
+- `phone`: Contact number.
+- `sportType`: Selected sport from curated list.
+- `experienceLevel`: Beginner / Intermediate / Professional.
+- `testType`: Type of performance test requested.
+- `testDate`: Preferred date for the assessment.
+- `createdAt`: Auto-generated enrollment timestamp.
 
-## Learn More
+## 📁 Project Structure
+- `/src/app`: Application routes and layout.
+- `/src/app/api`: Backend API handlers.
+- `/src/components`: Reusable UI components (Form, List).
+- `/src/lib`: Shared utilities (Prisma client).
+- `/prisma`: Database schema and migrations.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Developed as part of the Full-Stack Developer Trial Task.*

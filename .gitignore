@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/
+/test-db.ts
+/*.log
+/prisma_push.log
+/test_error.log
+/test_final.log
+/prisma_error.log

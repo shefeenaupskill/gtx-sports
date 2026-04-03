@@ -1,66 +1,53 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
 
+import { useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import styles from './page.module.css';
+
+// Modular Landing Page Components
+import HeroSection from '@/components/landing/HeroSection';
+import FeatureShowcase from '@/components/landing/FeatureShowcase';
+import EnrollmentSection from '@/components/landing/EnrollmentSection';
+import LabFooter from '@/components/landing/LabFooter';
+
+/**
+ * GTX Sports Dynamics Lab - Main Landing Page
+ * Performance-driven architecture for sports science data visualization.
+ */
 export default function Home() {
+  const [refresh, setRefresh] = useState(false);
+  
+  // High-performance scroll tracking for the global progress bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const handleRegisterComplete = () => {
+    setRefresh(prev => !prev);
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className={styles.main}>
+      {/* Visual Identity: Global Sci-Fi Progress Indicator */}
+      <motion.div className={styles.progressBar} style={{ scaleX }} />
+
+      {/* 01: Hero DNA Arrival */}
+      <HeroSection />
+
+      {/* 02: Biological Feature Matrix */}
+      <FeatureShowcase />
+
+      {/* 03: Lab Enrollment & Live Athlete Database */}
+      <EnrollmentSection 
+        refresh={refresh} 
+        onRegisterComplete={handleRegisterComplete} 
+      />
+
+      {/* 04: Lab Footer */}
+      <LabFooter />
+    </main>
   );
 }

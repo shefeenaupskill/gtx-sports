@@ -1,0 +1,176 @@
+.container {
+  height: 570px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.searchBox {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.searchBox input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  width: 100%;
+}
+
+.searchBox input:focus {
+  outline: none;
+}
+
+.listWrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.athleteRow {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s;
+}
+
+.athleteRow:hover {
+  background: rgba(57, 255, 20, 0.03);
+  border-color: rgba(57, 255, 20, 0.2);
+  transform: translateX(5px);
+}
+
+.athleteMain {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 250px;
+}
+
+.avatarBox {
+  width: 44px;
+  height: 44px;
+  background: rgba(57, 255, 20, 0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.email {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 300;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.testBadge {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent-neon);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.loadingContainer {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--text-dim);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(57, 255, 20, 0.1);
+  border-top-color: var(--accent-neon);
+  border-radius: 50%;
+}
+
+.emptyState {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--text-dim);
+  font-weight: 800;
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* Custom Scrollbar for listWrapper */
+.listWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.listWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.listWrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.listWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-neon);
+}
